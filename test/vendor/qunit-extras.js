@@ -1,3 +1,4 @@
+define(function(){var require = WILTON_requiresync;var module = {exports: {}};var exports = module.exports;
 /*!
  * QUnit Extras v1.4.1
  * Copyright 2011-2015 John-David Dalton <http://allyoucanleet.com/>
@@ -774,3 +775,5 @@
     runInContext(root);
   }
 }.call(this));
+
+return module.exports;});

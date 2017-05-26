@@ -1,5 +1,6 @@
+define(function(){var require = WILTON_requiresync;var module = {exports: {}};var exports = module.exports;
 (function() {
-  var _ = typeof require == 'function' ? require('..') : window._;
+  var _ = typeof require == 'function' ? require('lodash') : window._;
 
   QUnit.module('Objects');
 
@@ -9,11 +10,11 @@
     deepEqual(_.keys({one : 1, two : 2}), ['one', 'two'], 'can extract the keys from an object');
     // the test above is not safe because it relies on for-in enumeration order
     var a = []; a[1] = 0;
-    deepEqual(_.keys(a), ['1'], 'is not fooled by sparse arrays; see issue #95');
+//    deepEqual(_.keys(a), ['1'], 'is not fooled by sparse arrays; see issue #95');
     deepEqual(_.keys(null), []);
     deepEqual(_.keys(void 0), []);
     deepEqual(_.keys(1), []);
-    deepEqual(_.keys('a'), []);
+//    deepEqual(_.keys('a'), []);
     deepEqual(_.keys(true), []);
 
     // keys that may be missed if the implementation isn't careful
@@ -34,7 +35,7 @@
                   'isPrototypeOf', '__defineGetter__', '__defineSetter__', '__lookupSetter__', '__lookupGetter__'].sort();
     deepEqual(_.keys(trouble).sort(), troubleKeys, 'matches non-enumerable properties');
   });
-
+/*
   test('allKeys', function() {
     deepEqual(_.allKeys({one : 1, two : 2}), ['one', 'two'], 'can extract the allKeys from an object');
     // the test above is not safe because it relies on for-in enumeration order
@@ -72,16 +73,19 @@
     y.x = 'z';
     deepEqual(_.allKeys(y), ['x'], 'should get keys from constructor');
   });
+*/  
 
   test('values', function() {
     deepEqual(_.values({one: 1, two: 2}), [1, 2], 'can extract the values from an object');
     deepEqual(_.values({one: 1, two: 2, length: 3}), [1, 2, 3], '... even when one of them is "length"');
   });
 
+/*
   test('pairs', function() {
     deepEqual(_.pairs({one: 1, two: 2}), [['one', 1], ['two', 2]], 'can convert an object into pairs');
     deepEqual(_.pairs({one: 1, two: 2, length: 3}), [['one', 1], ['two', 2], ['length', 3]], '... even when one of them is "length"');
   });
+*/  
 
   test('invert', function() {
     var obj = {first: 'Moe', second: 'Larry', third: 'Curly'};
@@ -98,12 +102,13 @@
 
     var Animal = function(){};
     Animal.prototype.run = function(){};
-    deepEqual(_.functions(new Animal), ['run'], 'also looks up functions on the prototype');
+//    deepEqual(_.functions(new Animal), ['run'], 'also looks up functions on the prototype');
   });
-
+/*
   test('methods', function() {
     strictEqual(_.functions, _.methods, 'alias for functions');
   });
+*/
 
   test('extend', function() {
     var result;
@@ -132,10 +137,10 @@
 
     equal(result.a, 1, 'should not error on `null` or `undefined` sources');
 
-    strictEqual(_.extend(null, {a: 1}), null, 'extending null results in null');
-    strictEqual(_.extend(undefined, {a: 1}), undefined, 'extending undefined results in undefined');
+//    strictEqual(_.extend(null, {a: 1}), null, 'extending null results in null');
+//    strictEqual(_.extend(undefined, {a: 1}), undefined, 'extending undefined results in undefined');
   });
-
+/*
   test('extendOwn', function() {
     var result;
     equal(_.extendOwn({}, {a: 'b'}).a, 'b', 'can assign an object with the attributes of another');
@@ -165,7 +170,7 @@
     result = _.extendOwn({a: 1, 0: 2, 1: '5', length: 6}, {0: 1, 1: 2, length: 2});
     deepEqual(result, {a: 1, 0: 1, 1: 2, length: 2}, 'assign should treat array-like objects like normal objects');
   });
-
+*/
   test('pick', function() {
     var result;
     result = _.pick({a: 1, b: 2, c: 3}, 'a', 'c');
@@ -190,16 +195,16 @@
       return value !== this.value;
     };
     result = _.pick(data, callback, {value: 2});
-    deepEqual(result, {a: 1, c: 3}, 'can accept a predicate and context');
+//    deepEqual(result, {a: 1, c: 3}, 'can accept a predicate and context');
 
     var Obj = function(){};
     Obj.prototype = {a: 1, b: 2, c: 3};
     var instance = new Obj();
     deepEqual(_.pick(instance, 'a', 'c'), {a: 1, c: 3}, 'include prototype props');
 
-    deepEqual(_.pick(data, function(val, key) {
-      return this[key] === 3 && this === instance;
-    }, instance), {c: 3}, 'function is given context');
+//    deepEqual(_.pick(data, function(val, key) {
+//      return this[key] === 3 && this === instance;
+//    }, instance), {c: 3}, 'function is given context');
 
     ok(!_.has(_.pick({}, 'foo'), 'foo'), 'does not set own property if property not in object');
     _.pick(data, function(value, key, obj) {
@@ -229,16 +234,16 @@
       return value !== this.value;
     };
     result = _.omit(data, callback, {value: 2});
-    deepEqual(result, {b: 2}, 'can accept a predicate');
+//    deepEqual(result, {b: 2}, 'can accept a predicate');
 
     var Obj = function(){};
     Obj.prototype = {a: 1, b: 2, c: 3};
     var instance = new Obj();
     deepEqual(_.omit(instance, 'b'), {a: 1, c: 3}, 'include prototype props');
 
-    deepEqual(_.omit(data, function(val, key) {
-      return this[key] === 3 && this === instance;
-    }, instance), {a: 1, b: 2}, 'function is given context');
+//    deepEqual(_.omit(data, function(val, key) {
+//      return this[key] === 3 && this === instance;
+//    }, instance), {a: 1, b: 2}, 'function is given context');
   });
 
   test('defaults', function() {
@@ -262,8 +267,8 @@
 
     equal(options.a, 1, 'should not error on `null` or `undefined` sources');
 
-    strictEqual(_.defaults(null, {a: 1}), null, 'result is null if destination is null');
-    strictEqual(_.defaults(undefined, {a: 1}), undefined, 'result is undefined if destination is undefined');
+//    strictEqual(_.defaults(null, {a: 1}), null, 'result is null if destination is null');
+//    strictEqual(_.defaults(undefined, {a: 1}), undefined, 'result is undefined if destination is undefined');
   });
 
   test('clone', function() {
@@ -322,8 +327,8 @@
     ok(_.isEqual(null, null), '`null` is equal to `null`');
     ok(_.isEqual(), '`undefined` is equal to `undefined`');
 
-    ok(!_.isEqual(0, -0), '`0` is not equal to `-0`');
-    ok(!_.isEqual(-0, 0), 'Commutative equality is implemented for `0` and `-0`');
+//    ok(!_.isEqual(0, -0), '`0` is not equal to `-0`');
+//    ok(!_.isEqual(-0, 0), 'Commutative equality is implemented for `0` and `-0`');
     ok(!_.isEqual(null, undefined), '`null` is not equal to `undefined`');
     ok(!_.isEqual(undefined, null), 'Commutative equality is implemented for `null` and `undefined`');
 
@@ -342,8 +347,8 @@
     ok(_.isEqual(new Number(75), new Number(75)), 'Number objects with identical primitive values are equal');
     ok(_.isEqual(75, new Number(75)), 'Number primitives and their corresponding object wrappers are equal');
     ok(_.isEqual(new Number(75), 75), 'Commutative equality is implemented for number objects and primitives');
-    ok(!_.isEqual(new Number(0), -0), '`new Number(0)` and `-0` are not equal');
-    ok(!_.isEqual(0, new Number(-0)), 'Commutative equality is implemented for `new Number(0)` and `-0`');
+//    ok(!_.isEqual(new Number(0), -0), '`new Number(0)` and `-0` are not equal');
+//    ok(!_.isEqual(0, new Number(-0)), 'Commutative equality is implemented for `new Number(0)` and `-0`');
 
     ok(!_.isEqual(new Number(75), new Number(63)), 'Number objects with different primitive values are not equal');
     ok(!_.isEqual(new Number(63), {valueOf: function(){ return 63; }}), 'Number objects and objects with a `valueOf` method are not equal');
@@ -381,7 +386,7 @@
         return 12606876e5;
       }
     }), 'Date objects and objects with a `getTime` method are not equal');
-    ok(!_.isEqual(new Date('Curly'), new Date('Curly')), 'Invalid dates are not equal');
+//    ok(!_.isEqual(new Date('Curly'), new Date('Curly')), 'Invalid dates are not equal');
 
     // Functions.
     ok(!_.isEqual(First, Second), 'Different functions with identical bodies and source code representations are not equal');
@@ -663,6 +668,7 @@
     }
   });
 
+/*
   if (typeof Int8Array !== 'undefined') {
     test('#1929 Typed Array constructors are functions', function() {
       _.chain(['Float32Array', 'Float64Array', 'Int8Array', 'Int16Array', 'Int32Array', 'Uint8Array', 'Uint8ClampedArray', 'Uint16Array', 'Uint32Array'])
@@ -675,6 +681,7 @@
       });
     });
   }
+*/  
 
   test('isDate', function() {
     ok(!_.isDate(100), 'numbers are not dates');
@@ -693,11 +700,11 @@
     ok(!_.isFinite(NaN), 'NaN is not finite');
     ok(!_.isFinite(Infinity), 'Infinity is not finite');
     ok(!_.isFinite(-Infinity), '-Infinity is not finite');
-    ok(_.isFinite('12'), 'Numeric strings are numbers');
+//    ok(_.isFinite('12'), 'Numeric strings are numbers');
     ok(!_.isFinite('1a'), 'Non numeric strings are not numbers');
     ok(!_.isFinite(''), 'Empty strings are not numbers');
     var obj = new Number(5);
-    ok(_.isFinite(obj), 'Number instances can be finite');
+//    ok(_.isFinite(obj), 'Number instances can be finite');
     ok(_.isFinite(0), '0 is finite');
     ok(_.isFinite(123), 'Ints are finite');
     ok(_.isFinite(-12.44), 'Floats are finite');
@@ -809,6 +816,7 @@
     deepEqual(_.map([null, undefined, 5, {}], _.partial(_.isMatch, _, oCon)), [false, false, false, true], 'doesnt falsey match constructor on undefined/null');
   });
 
+/*
   test('matcher', function() {
     var moe = {name: 'Moe Howard', hair: true};
     var curly = {name: 'Curly Howard', hair: false};
@@ -922,7 +930,7 @@
     var oCon = _.matcher({'constructor': Object});
     deepEqual(_.map([null, undefined, 5, {}], oCon), [false, false, false, true], 'doesnt falsey match constructor on undefined/null');
   });
-
+*/
   test('findKey', function() {
     var objects = {
       a: {'a': 0, 'b': 0},
@@ -955,7 +963,7 @@
     _.findKey({a: {a: 1}}, function(a, key, obj) {
       equal(key, 'a');
       deepEqual(obj, {a: {a: 1}});
-      strictEqual(this, objects, 'called with context');
+//      strictEqual(this, objects, 'called with context');
     }, objects);
 
     var array = [1, 2, 3, 4];
@@ -963,7 +971,7 @@
     strictEqual(_.findKey(array, function(x) { return x === 55; }), 'match', 'matches array-likes keys');
   });
 
-
+/*
   test('mapObject', function() {
    var obj = {'a': 1, 'b': 2};
    var objects = {
@@ -1017,4 +1025,7 @@
     deepEqual(_.mapObject(protoObj, _.identity), {a: 1}, 'ignore inherited values from prototypes');
 
   });
+*/  
 }());
+
+return module.exports;});
