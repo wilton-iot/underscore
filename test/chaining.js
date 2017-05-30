@@ -2,6 +2,12 @@ define(function(){var require = WILTON_requiresync;var module = {exports: {}};va
 (function() {
   var _ = typeof require == 'function' ? require('lodash') : window._;
 
+  var assert = require("assert");
+  var test = require("tape-compat");
+  var QUnit = test.QUnit;
+  var equal = assert.equal;
+  var deepEqual = assert.deepEqual;
+  var strictEqual = assert.strictEqual;
   QUnit.module('Chaining');
 
   test('map/flatten/reduce', function() {

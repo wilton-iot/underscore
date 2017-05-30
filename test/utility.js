@@ -3,6 +3,14 @@ define(function(){var require = WILTON_requiresync;var module = {exports: {}};va
   var _ = typeof require == 'function' ? require('lodash') : window._;  
   var templateSettings;
 
+  var assert = require("assert");
+  var test = require("tape-compat");
+  var QUnit = test.QUnit;
+  var equal = assert.equal;
+  var deepEqual = assert.deepEqual;
+  var strictEqual = assert.strictEqual;
+  var ok = assert.ok;
+  var notEqual = assert.notEqual;
   QUnit.module('Utility', {
 
     setup: function() {

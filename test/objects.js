@@ -2,6 +2,13 @@ define(function(){var require = WILTON_requiresync;var module = {exports: {}};va
 (function() {
   var _ = typeof require == 'function' ? require('lodash') : window._;
 
+  var assert = require("assert");
+  var test = require("tape-compat");
+  var QUnit = test.QUnit;
+  var equal = assert.equal;
+  var deepEqual = assert.deepEqual;
+  var strictEqual = assert.strictEqual;
+  var ok = assert.ok;
   QUnit.module('Objects');
 
   var testElement = typeof document === 'object' ? document.createElement('div') : void 0;
