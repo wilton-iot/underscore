@@ -1,4 +1,4 @@
-define(function(){var require = WILTON_requiresync;var module = {exports: {}};var exports = module.exports;
+define(function(localRequire, exports, module) { var requireOrig = require; require = localRequire;
 /*!
  * QUnit Extras v1.4.1
  * Copyright 2011-2015 John-David Dalton <http://allyoucanleet.com/>
@@ -776,4 +776,4 @@ define(function(){var require = WILTON_requiresync;var module = {exports: {}};va
   }
 }.call(this));
 
-return module.exports;});
+require = requireOrig;});

@@ -1,4 +1,4 @@
-define(function(){var require = WILTON_requiresync;var module = {exports: {}};var exports = module.exports;
+define(function(localRequire, exports, module) { var requireOrig = require; require = localRequire;
 (function() {
   var _ = typeof require == 'function' ? require('lodash') : window._;
 
@@ -590,4 +590,4 @@ define(function(){var require = WILTON_requiresync;var module = {exports: {}};va
 
 }());
 
-return module.exports;});
+require = requireOrig;});

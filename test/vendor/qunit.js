@@ -1,4 +1,4 @@
-define(function(){var require = WILTON_requiresync;var module = {exports: {}};var exports = module.exports;
+define(function(localRequire, exports, module) { var requireOrig = require; require = localRequire;
 /*!
  * QUnit 1.17.1
  * http://qunitjs.com/
@@ -2875,4 +2875,4 @@ if ( defined.document ) {
 
 })();
 
-return module.exports;});
+require = requireOrig;});
